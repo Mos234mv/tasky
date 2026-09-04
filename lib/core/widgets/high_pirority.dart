@@ -1,0 +1,138 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:todoprof/core/Theme/theme_controller.dart';
+import 'package:todoprof/core/widgets/custom_ceckbox.dart';
+import 'package:todoprof/models/task_model.dart';
+import 'package:todoprof/screens/high_pirority_screen.dart';
+
+class HighPirorityWidget extends StatelessWidget {
+  HighPirorityWidget({
+    super.key,
+    required this.tasks,
+    required this.ontap,
+    required this.refresh,
+  });
+
+  final List<TaskModel> tasks;
+  final Function(bool?, int?) ontap;
+  final Function refresh;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.primaryContainer,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: ThemeController.themeNotifier.value == ThemeMode.light
+              ? Color(0xFFD1DAD6)
+              : Colors.transparent,
+        ),
+      ),
+
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Text(
+                    "High Priority Tasks",
+                    style: TextStyle(
+                      color: Color(0xFF15B86C),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ),
+
+                ...tasks.where((e) => e.isHighPriority).take(4).map((elemnt) {
+                  return Row(
+                    children: [
+                      CustomCeckbox(
+                        value: elemnt.isDone,
+                        onChanged: (val) {
+                          final index = tasks.indexWhere(
+                            (e) => e.id == elemnt.id,
+                          );
+                          ontap(val, index);
+                        },
+                      ),
+
+                      Expanded(
+                        child: Text(
+                          elemnt.taskName,
+                          style: elemnt.isDone
+                              ? Theme.of(context).textTheme.titleLarge
+                              : Theme.of(context).textTheme.titleMedium,
+
+                          // TextStyle(
+                          //   color: elemnt.isDone
+                          // /      ? Color(0xFFA0A0A0)
+                          //       : Color(0xFFFFFCFC),
+                          //   fontSize: 16,
+                          //   fontWeight: FontWeight.w400,
+                          //   decoration: elemnt.isDone
+                          //      / ? TextDecoration.lineThrough
+                          //       : TextDecoration.none,
+                          //   decorationColor: Color(0xFFA0A0A0),
+                          //   overflow: TextOverflow.ellipsis,
+                          // ),
+                          maxLines: 1,
+                        ),
+                      ),
+                    ],
+                  );
+                }),
+              ],
+            ),
+          ),
+          GestureDetector(
+            onTap: () async {
+              await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return HighPirorityScreen();
+                  },
+                ),
+              );
+              refresh();
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Container(
+                padding: EdgeInsets.all(8),
+                height: 56,
+                width: 48,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.primaryContainer,
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: ThemeController.isDark()
+                        ? Color(0xFF6E6E6E)
+                        : Color(0xFFD1DAD6),
+                  ),
+                ),
+                child: SvgPicture.asset(
+                  'assets/Images/arrow-up-right.svg',
+                  width: 24,
+                  height: 24,
+                  colorFilter: ColorFilter.mode(
+                    Theme.of(context).colorScheme.secondary,
+                    BlendMode.srcIn,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
