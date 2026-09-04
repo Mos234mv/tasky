@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:todoprof/core/services/prefrence_manager.dart';
 import 'package:todoprof/models/task_model.dart';
-import 'package:todoprof/core/widgets/task_list_widget.dart';
+import 'package:todoprof/core/components/task_list_widget.dart';
 
 class CompleteTasks extends StatefulWidget {
   const CompleteTasks({super.key});

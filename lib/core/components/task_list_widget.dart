@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:todoprof/core/widgets/task_item_widget.dart';
+import 'package:todoprof/core/components/task_item_widget.dart';
 import 'package:todoprof/models/task_model.dart';
 
 // ignore: must_be_immutable

@@ -9,9 +9,9 @@ import 'package:todoprof/core/services/prefrence_manager.dart';
 import 'package:todoprof/core/widgets/custom_svg_picture.dart';
 import 'package:todoprof/models/task_model.dart';
 import 'package:todoprof/features/add_task/add_task.dart';
-import 'package:todoprof/core/widgets/achieved%20tasks.dart';
-import 'package:todoprof/core/widgets/high_pirority.dart';
-import 'package:todoprof/core/widgets/sliver_task_list_widget.dart';
+import 'package:todoprof/features/home/component/achieved%20tasks.dart';
+import 'package:todoprof/features/home/component/high_pirority.dart';
+import 'package:todoprof/features/home/component/sliver_task_list_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
