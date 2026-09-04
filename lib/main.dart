@@ -5,8 +5,8 @@ import 'package:todoprof/core/Theme/theme_controller.dart';
 
 import 'package:todoprof/core/services/prefrence_manager.dart';
 
-import 'package:todoprof/screens/main_screen.dart';
-import 'package:todoprof/screens/welcome_screen.dart';
+import 'package:todoprof/features/Navigation/main_screen.dart';
+import 'package:todoprof/features/welcome/welcome_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

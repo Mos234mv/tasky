@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:todoprof/core/services/prefrence_manager.dart';
 import 'package:todoprof/core/widgets/custom_svg_picture.dart';
 import 'package:todoprof/models/task_model.dart';
-import 'package:todoprof/screens/add_task.dart';
+import 'package:todoprof/features/add_task/add_task.dart';
 import 'package:todoprof/core/widgets/achieved%20tasks.dart';
 import 'package:todoprof/core/widgets/high_pirority.dart';
 import 'package:todoprof/core/widgets/sliver_task_list_widget.dart';

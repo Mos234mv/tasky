@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:todoprof/core/Theme/theme_controller.dart';
 import 'package:todoprof/core/widgets/custom_ceckbox.dart';
 import 'package:todoprof/models/task_model.dart';
-import 'package:todoprof/screens/high_pirority_screen.dart';
+import 'package:todoprof/features/tasks/high_pirority_screen.dart';
 
 class HighPirorityWidget extends StatelessWidget {
   HighPirorityWidget({

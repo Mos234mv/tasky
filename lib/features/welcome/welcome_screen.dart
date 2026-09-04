@@ -4,7 +4,7 @@ import 'package:todoprof/core/services/prefrence_manager.dart';
 import 'package:todoprof/core/widgets/custom_svg_picture.dart';
 import 'package:todoprof/core/widgets/custom_text_form_field.dart';
 
-import 'package:todoprof/screens/main_screen.dart';
+import 'package:todoprof/features/Navigation/main_screen.dart';
 
 class Welcome extends StatelessWidget {
   Welcome({super.key});
