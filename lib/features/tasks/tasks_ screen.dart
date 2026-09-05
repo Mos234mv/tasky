@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:todoprof/core/constants/storage_key.dart';
 import 'package:todoprof/core/services/prefrence_manager.dart';
 import 'package:todoprof/models/task_model.dart';
 import 'package:todoprof/core/components/task_list_widget.dart';
@@ -29,7 +30,7 @@ class _TasksState extends State<Tasks> {
       isLoading = true;
     });
 
-    final finalTask = PrefrenceManager().getString('tasks');
+    final finalTask = PrefrenceManager().getString(StorageKey.modelTasks);
 
     if (finalTask != null) {
       final taskAfterDecode = jsonDecode(finalTask) as List<dynamic>;
@@ -48,7 +49,7 @@ class _TasksState extends State<Tasks> {
 
   _deleteTask(int? id) async {
     List<TaskModel> tasks = [];
-    final finalTask = PrefrenceManager().getString('tasks');
+    final finalTask = PrefrenceManager().getString(StorageKey.modelTasks);
 
     if (finalTask != null) {
       final taskAfterDecode = jsonDecode(finalTask) as List<dynamic>;
@@ -62,7 +63,10 @@ class _TasksState extends State<Tasks> {
         todoTasks.removeWhere((task) => task.id == id);
       });
       final updatedTask = tasks.map((element) => element.toJson()).toList();
-      await PrefrenceManager().setString('tasks', jsonEncode(updatedTask));
+      await PrefrenceManager().setString(
+        StorageKey.modelTasks,
+        jsonEncode(updatedTask),
+      );
     }
   }
 
@@ -87,7 +91,9 @@ class _TasksState extends State<Tasks> {
                   todoTasks[index!].isDone = val ?? false;
                 });
 
-                final allData = PrefrenceManager().getString("tasks");
+                final allData = PrefrenceManager().getString(
+                  StorageKey.modelTasks,
+                );
                 if (allData != null) {
                   List<TaskModel> allDataList = (jsonDecode(allData) as List)
                       .map((element) => TaskModel.fromJson(element))
@@ -98,7 +104,7 @@ class _TasksState extends State<Tasks> {
                   allDataList[newIndex] = todoTasks[index!];
 
                   PrefrenceManager().setString(
-                    'tasks',
+                    StorageKey.modelTasks,
                     jsonEncode(allDataList),
                   );
                   _loadTask();

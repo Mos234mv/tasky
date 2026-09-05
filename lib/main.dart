@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:todoprof/core/Theme/dark_theme.dart';
 import 'package:todoprof/core/Theme/light_theme.dart';
 import 'package:todoprof/core/Theme/theme_controller.dart';
+import 'package:todoprof/core/constants/storage_key.dart';
 
 import 'package:todoprof/core/services/prefrence_manager.dart';
 
@@ -14,7 +15,7 @@ void main() async {
 
   await PrefrenceManager().init();
   ThemeController().init();
-  String? username = PrefrenceManager().getString('username');
+  String? username = PrefrenceManager().getString(StorageKey.userName);
   runApp(MyApp(username: username));
 }
 

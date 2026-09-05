@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:todoprof/core/Theme/theme_controller.dart';
+import 'package:todoprof/core/constants/storage_key.dart';
 import 'package:todoprof/core/enums/task_item_actions_enum.dart';
 import 'package:todoprof/core/services/prefrence_manager.dart';
 import 'package:todoprof/core/widgets/custom_ceckbox.dart';
@@ -206,7 +207,7 @@ class TaskItemWidget extends StatelessWidget {
                             isDone: model.isDone,
                           );
                           final item = listTasks.firstWhere(
-                            (e) => e['id'] == model.id,
+                            (e) => e[StorageKey.id] == model.id,
                           );
                           final index = listTasks.indexOf(item);
                           listTasks[index] = newmodel;

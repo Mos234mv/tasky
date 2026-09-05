@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'package:todoprof/core/Theme/theme_controller.dart';
+import 'package:todoprof/core/constants/storage_key.dart';
 import 'package:todoprof/core/services/prefrence_manager.dart';
 import 'package:todoprof/core/widgets/custom_svg_picture.dart';
 
@@ -31,13 +32,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   void loadData() {
     setState(() {
-      username = PrefrenceManager().getString('username') ?? '';
+      username = PrefrenceManager().getString(StorageKey.userName) ?? '';
       motivationquote =
-          PrefrenceManager().getString('Motivation_Quote') ??
+          PrefrenceManager().getString(StorageKey.motivationQuote) ??
           "One task at a time. One step closer.";
       isLoading = false;
     });
-    userImagePath = PrefrenceManager().getString('userImage');
+    userImagePath = PrefrenceManager().getString(StorageKey.userImage);
   }
 
   @override
@@ -166,9 +167,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Divider(),
                 ListTile(
                   onTap: () async {
-                    PrefrenceManager().remove('username');
-                    PrefrenceManager().remove('Motivation_Quote');
-                    PrefrenceManager().remove('tasks');
+                    PrefrenceManager().remove(StorageKey.userName);
+                    PrefrenceManager().remove(StorageKey.motivationQuote);
+                    PrefrenceManager().remove(StorageKey.modelTasks);
                     Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
@@ -257,7 +258,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void _saveImae(XFile file) async {
     final appDir = await getApplicationDocumentsDirectory();
     final newfile = await File(file.path).copy('${appDir.path}/${file.name} ');
-    PrefrenceManager().setString('userImage', newfile.path);
+    PrefrenceManager().setString(StorageKey.userImage, newfile.path);
   }
 
   // void _showBottomSeet(BuildContext context) {

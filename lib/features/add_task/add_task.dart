@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:todoprof/core/constants/storage_key.dart';
 
 import 'package:todoprof/core/services/prefrence_manager.dart';
 import 'package:todoprof/core/widgets/custom_text_form_field.dart';
@@ -87,7 +88,9 @@ class _AddTaskState extends State<AddTask> {
                 ElevatedButton.icon(
                   onPressed: () async {
                     if (_key.currentState?.validate() ?? false) {
-                      final taskJason = PrefrenceManager().getString("tasks");
+                      final taskJason = PrefrenceManager().getString(
+                        StorageKey.modelTasks,
+                      );
 
                       List<dynamic> listtasks = [];
                       if (taskJason != null) {
@@ -100,15 +103,12 @@ class _AddTaskState extends State<AddTask> {
                         isHighPriority: isHighPriority,
                       );
 
-                      // final task = <String, dynamic>{
-                      //   "taskName": taskNameController.text,
-                      //   "taskDescription": taskdescriptioncontroller.text,
-                      //   "isHighPriority": isHighPriority,
-                      // };
-
                       listtasks.add(model.toJson());
                       final taskEncode = jsonEncode(listtasks);
-                      await PrefrenceManager().setString("tasks", taskEncode);
+                      await PrefrenceManager().setString(
+                        StorageKey.modelTasks,
+                        taskEncode,
+                      );
 
                       Navigator.of(context).pop(true);
                     }

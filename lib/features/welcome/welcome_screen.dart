@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todoprof/core/constants/storage_key.dart';
 
 import 'package:todoprof/core/services/prefrence_manager.dart';
 import 'package:todoprof/core/widgets/custom_svg_picture.dart';
@@ -94,7 +95,7 @@ class Welcome extends StatelessWidget {
                           onPressed: () async {
                             if (_key.currentState?.validate() ?? false) {
                               PrefrenceManager().setString(
-                                'username',
+                                StorageKey.userName,
                                 controller.value.text,
                               );
 

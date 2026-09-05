@@ -1,3 +1,5 @@
+import 'package:todoprof/core/constants/storage_key.dart';
+
 class TaskModel {
   final int id;
   final String taskName;
@@ -14,21 +16,21 @@ class TaskModel {
   });
   factory TaskModel.fromJson(Map<String, dynamic> json) {
     return TaskModel(
-      id: json['id'],
-      taskName: json['taskName'],
-      taskDescription: json['taskDescription'],
-      isHighPriority: json['isHighPriority'],
-      isDone: json["isDone"] ?? false,
+      id: json[StorageKey.id],
+      taskName: json[StorageKey.taskName],
+      taskDescription: json[StorageKey.taskDescription],
+      isHighPriority: json[StorageKey.isHighPriority],
+      isDone: json[StorageKey.isDone] ?? false,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      "id": id,
-      "taskName": taskName,
-      "taskDescription": taskDescription,
-      "isHighPriority": isHighPriority,
-      'isDone': isDone,
+      StorageKey.id: id,
+      StorageKey.taskName: taskName,
+      StorageKey.taskDescription: taskDescription,
+      StorageKey.isHighPriority: isHighPriority,
+      StorageKey.isDone: isDone,
     };
   }
 }

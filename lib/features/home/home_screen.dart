@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:todoprof/core/constants/storage_key.dart';
 
 import 'package:todoprof/core/services/prefrence_manager.dart';
 import 'package:todoprof/core/widgets/custom_svg_picture.dart';
@@ -41,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       isLoading = true;
     });
-    final finalTask = PrefrenceManager().getString('tasks');
+    final finalTask = PrefrenceManager().getString(StorageKey.modelTasks);
 
     if (finalTask != null) {
       final taskAfterDecode = jsonDecode(finalTask) as List<dynamic>;
@@ -60,8 +61,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _loadusername() async {
     setState(() {
-      username = PrefrenceManager().getString('username');
-      userImagePath = PrefrenceManager().getString('userImage');
+      username = PrefrenceManager().getString(StorageKey.userName);
+      userImagePath = PrefrenceManager().getString(StorageKey.userImage);
     });
   }
 
@@ -78,7 +79,10 @@ class _HomeScreenState extends State<HomeScreen> {
     });
 
     final updatedTask = tasks.map((element) => element.toJson()).toList();
-    await PrefrenceManager().setString('tasks', jsonEncode(updatedTask));
+    await PrefrenceManager().setString(
+      StorageKey.modelTasks,
+      jsonEncode(updatedTask),
+    );
   }
 
   _deleteTask(int? id) async {
@@ -89,7 +93,10 @@ class _HomeScreenState extends State<HomeScreen> {
       _calculate();
     });
     final updatedTask = tasks.map((element) => element.toJson()).toList();
-    await PrefrenceManager().setString('tasks', jsonEncode(updatedTask));
+    await PrefrenceManager().setString(
+      StorageKey.modelTasks,
+      jsonEncode(updatedTask),
+    );
   }
 
   @override
