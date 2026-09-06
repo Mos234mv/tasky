@@ -32,10 +32,9 @@ class HomeController with ChangeNotifier {
           .map((element) => TaskModel.fromJson(element))
           .toList();
       calculate();
-
-      isLoading = false;
-      notifyListeners();
     }
+    isLoading = false;
+    notifyListeners();
   }
 
   void loadUserData() async {
