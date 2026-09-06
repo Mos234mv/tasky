@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:todoprof/core/components/task_list_widget.dart';
+import 'package:todoprof/features/add_task/add_task_controller.dart';
 import 'package:todoprof/features/tasks/tasks_controller.dart';
+import 'package:todoprof/models/task_model.dart';
+import 'package:todoprof/core/components/task_list_widget.dart';
 
-class CompleteTasks extends StatelessWidget {
-  const CompleteTasks({super.key});
+class TodoTasksScreen extends StatelessWidget {
+  TodoTasksScreen({super.key});
 
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<TasksController>(
+    return ChangeNotifierProvider(
       create: (_) => TasksController()..init(),
       builder: (context, _) {
         final controller = context.read<TasksController>();
@@ -18,7 +20,7 @@ class CompleteTasks extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(18),
               child: Text(
-                "Completed Tasks",
+                "To Do Tasks",
                 style: Theme.of(context).textTheme.labelSmall,
               ),
             ),
@@ -28,9 +30,9 @@ class CompleteTasks extends StatelessWidget {
                 child: Consumer<TasksController>(
                   builder: (BuildContext context, value, Widget? child) {
                     return TaskListWidget(
-                      tasks: controller.completeTasks,
+                      tasks: value.todoTasks,
                       ontap: (bool? value, int? index) {
-                        controller.doneCompleteTask(value, index);
+                        controller.doneTask(value, index);
                       },
                       emptyMessage: "No Tasks Found",
                       onDelete: (int? id) {
