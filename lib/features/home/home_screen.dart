@@ -16,14 +16,13 @@ class HomeScreen extends StatelessWidget {
     return ChangeNotifierProvider<HomeController>(
       create: (context) => HomeController()..init(),
 
-      child: Consumer<HomeController>(
-        builder: (BuildContext context, value, Widget? child) {
-          final HomeController controller = context.read<HomeController>();
-          return Scaffold(
-            floatingActionButton: SizedBox(
-              height: 40,
-              width: 168,
-              child: FloatingActionButton.extended(
+      child: Scaffold(
+        floatingActionButton: SizedBox(
+          height: 40,
+          width: 168,
+          child: Builder(
+            builder: (BuildContext context) {
+              return FloatingActionButton.extended(
                 onPressed: () async {
                   final bool? result = await Navigator.push(
                     context,
@@ -34,7 +33,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   );
                   if (result != null && result == true) {
-                    controller.loadTask();
+                    context.read<HomeController>().loadTask();
                   }
                 },
 
@@ -43,113 +42,110 @@ class HomeScreen extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(100),
                 ),
-              ),
-            ),
+              );
+            },
+          ),
+        ),
 
-            body: Padding(
-              padding: const EdgeInsets.all(16),
-              child: CustomScrollView(
-                slivers: [
-                  SliverToBoxAdapter(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+        body: Padding(
+          padding: const EdgeInsets.all(16),
+          child: CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
 
+                  children: [
+                    Row(
                       children: [
-                        Row(
-                          children: [
-                            CircleAvatar(
-                              backgroundImage: value.userImagePath == null
-                                  ? AssetImage(
-                                      'assets/Images/Leading element.png',
-                                    )
-                                  : FileImage(File(value.userImagePath!)),
-                              radius: 60,
-                              backgroundColor: Colors.transparent,
-                            ),
-                            SizedBox(width: 8),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Good Evening , ${value.username}",
-                                  style: Theme.of(
-                                    context,
-                                  ).textTheme.titleMedium,
-                                ),
-                                Text(
-                                  "One task at a time.One step closer.",
-                                  style: Theme.of(context).textTheme.titleSmall,
-                                ),
-                              ],
-                            ),
-                          ],
+                        Selector<HomeController, String?>(
+                          selector: (BuildContext, controller) =>
+                              controller.userImagePath,
+                          builder:
+                              (
+                                BuildContext context,
+                                String? userImagePath,
+                                Widget? child,
+                              ) {
+                                return CircleAvatar(
+                                  backgroundImage: userImagePath == null
+                                      ? AssetImage(
+                                          'assets/Images/Leading element.png',
+                                        )
+                                      : FileImage(File(userImagePath)),
+                                  radius: 60,
+                                  backgroundColor: Colors.transparent,
+                                );
+                              },
                         ),
-                        SizedBox(height: 16),
-                        Text(
-                          'Yuhuu ,Your work Is ',
-                          style: Theme.of(context).textTheme.displayLarge,
-                        ),
-                        Row(
+                        SizedBox(width: 8),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            Selector<HomeController, String?>(
+                              selector: (context, controller) =>
+                                  controller.username,
+                              builder:
+                                  (
+                                    BuildContext context,
+                                    String? username,
+                                    Widget? child,
+                                  ) {
+                                    return Text(
+                                      "Good Evening , $username",
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.titleMedium,
+                                    );
+                                  },
+                            ),
                             Text(
-                              'almost done !',
-                              style: Theme.of(context).textTheme.displayLarge,
-                            ),
-                            SizedBox(width: 8),
-                            CustomSvgPicture(
-                              path:
-                                  'assets/Images/waving-hand-medium-light-skin-tone-svgrepo-com 1.svg',
-                              withColor: false,
+                              "One task at a time.One step closer.",
+                              style: Theme.of(context).textTheme.titleSmall,
                             ),
                           ],
-                        ),
-                        SizedBox(height: 16),
-                        AchievedTaskWidget(
-                          totalDoneTask: value.totalDoneTask,
-                          totalTask: value.totalTask,
-                          percentage: value.percentage,
-                        ),
-                        SizedBox(height: 8),
-                        HighPirorityWidget(
-                          tasks: value.tasks
-                              .where((e) => e.isHighPriority)
-                              .toList(),
-                          ontap: (bool? val, int? index) {
-                            controller.doneTask(val, index);
-                          },
-                          refresh: () {
-                            controller.loadTask();
-                          },
-                        ),
-
-                        Padding(
-                          padding: const EdgeInsets.only(top: 24, bottom: 16),
-                          child: Text(
-                            "My Tasks",
-                            style: Theme.of(context).textTheme.labelSmall,
-                          ),
                         ),
                       ],
                     ),
-                  ),
+                    SizedBox(height: 16),
+                    Text(
+                      'Yuhuu ,Your work Is ',
+                      style: Theme.of(context).textTheme.displayLarge,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          'almost done !',
+                          style: Theme.of(context).textTheme.displayLarge,
+                        ),
+                        SizedBox(width: 8),
+                        CustomSvgPicture(
+                          path:
+                              'assets/Images/waving-hand-medium-light-skin-tone-svgrepo-com 1.svg',
+                          withColor: false,
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 16),
+                    AchievedTaskWidget(),
+                    SizedBox(height: 8),
+                    HighPirorityWidget(),
 
-                  SliverTaskListWidget(
-                    tasks: value.tasks,
-                    ontap: (bool? val, int? index) {
-                      controller.doneTask(val, index);
-                    },
-                    onDelete: (int? id) {
-                      controller.deleteTask(id);
-                    },
-                    onedit: () {
-                      controller.loadTask();
-                    },
-                  ),
-                ],
+                    Padding(
+                      padding: const EdgeInsets.only(top: 24, bottom: 16),
+                      child: Text(
+                        "My Tasks",
+                        style: Theme.of(context).textTheme.labelSmall,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          );
-        },
+
+              SliverTaskListWidget(),
+            ],
+          ),
+        ),
       ),
     );
   }

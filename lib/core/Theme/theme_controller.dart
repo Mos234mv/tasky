@@ -1,6 +1,7 @@
 // ignore_for_file: empty_statements, strict_top_level_inference, avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:todoprof/core/constants/storage_key.dart';
 import 'package:todoprof/core/services/prefrence_manager.dart';
 
 class ThemeController {
@@ -9,17 +10,17 @@ class ThemeController {
   );
 
   init() {
-    bool result = PrefrenceManager().getBool('theme') ?? true;
+    bool result = PrefrenceManager().getBool(StorageKey.theme) ?? true;
     themeNotifier.value = result ? ThemeMode.dark : ThemeMode.light;
   }
 
   static toggleTheme() {
     if (themeNotifier.value == ThemeMode.dark) {
       themeNotifier.value = ThemeMode.light;
-      PrefrenceManager().setBool('theme', false);
+      PrefrenceManager().setBool(StorageKey.theme, false);
     } else {
       themeNotifier.value = ThemeMode.dark;
-      PrefrenceManager().setBool('theme', true);
+      PrefrenceManager().setBool(StorageKey.theme, true);
     }
   }
 

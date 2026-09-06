@@ -8,4 +8,5 @@ class StorageKey {
   static const String isHighPriority = 'isHighPriority';
   static const String isDone = 'isDone';
   static const String motivationQuote = 'Motivation_Quote';
+  static const String theme = 'Motivation_Quote';
 }
