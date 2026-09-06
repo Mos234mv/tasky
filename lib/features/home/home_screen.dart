@@ -1,16 +1,8 @@
-// ignore_for_file: strict_top_level_inference, unused_element
-
-import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todoprof/core/constants/storage_key.dart';
-
-import 'package:todoprof/core/services/prefrence_manager.dart';
 import 'package:todoprof/core/widgets/custom_svg_picture.dart';
 import 'package:todoprof/features/home/home_controller.dart';
-import 'package:todoprof/models/task_model.dart';
 import 'package:todoprof/features/add_task/add_task.dart';
 import 'package:todoprof/features/home/component/achieved%20tasks.dart';
 import 'package:todoprof/features/home/component/high_pirority.dart';
