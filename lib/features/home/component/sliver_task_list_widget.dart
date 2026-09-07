@@ -4,21 +4,26 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:todoprof/core/components/task_item_widget.dart';
-import 'package:todoprof/features/home/home_controller.dart';
+
+import 'package:todoprof/features/tasks/tasks_controller.dart';
 
 class SliverTaskListWidget extends StatelessWidget {
   const SliverTaskListWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<HomeController>(
+    return Consumer<TasksController>(
       builder:
-          (BuildContext context, HomeController controller, Widget? child) {
-            return controller.isLoading
+          (
+            BuildContext context,
+            TasksController valueController,
+            Widget? child,
+          ) {
+            return valueController.isLoading
                 ? SliverToBoxAdapter(
                     child: Center(child: CircularProgressIndicator(value: 20)),
                   )
-                : controller.tasks.isEmpty
+                : valueController.tasks.isEmpty
                 ? SliverToBoxAdapter(
                     child: Center(
                       child: Text(
@@ -33,20 +38,23 @@ class SliverTaskListWidget extends StatelessWidget {
                     padding: EdgeInsets.only(bottom: 80),
 
                     sliver: SliverList.builder(
-                      itemCount: controller.tasks.length,
+                      itemCount: valueController.tasks.length,
                       itemBuilder: (BuildContext context, int index) {
                         return Padding(
                           padding: const EdgeInsets.only(top: 8.0),
                           child: TaskItemWidget(
-                            model: controller.tasks[index],
+                            model: valueController.tasks[index],
                             onChanged: (bool? value) {
-                              controller.doneTask(value, index);
+                              valueController.doneTask(
+                                value,
+                                valueController.tasks[index].id,
+                              );
                             },
                             onDelete: (int id) {
-                              controller.deleteTask(id);
+                              valueController.deleteTask(id);
                             },
                             onedit: () {
-                              controller.loadTask();
+                              valueController.loadTask();
                             },
                           ),
                         );

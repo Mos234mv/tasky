@@ -7,6 +7,7 @@ import 'package:todoprof/features/add_task/add_task.dart';
 import 'package:todoprof/features/home/component/achieved%20tasks.dart';
 import 'package:todoprof/features/home/component/high_pirority.dart';
 import 'package:todoprof/features/home/component/sliver_task_list_widget.dart';
+import 'package:todoprof/features/tasks/tasks_controller.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -33,7 +34,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   );
                   if (result != null && result == true) {
-                    context.read<HomeController>().loadTask();
+                    context.read<TasksController>().loadTask();
                   }
                 },
 

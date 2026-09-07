@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:todoprof/core/constants/storage_key.dart';
 import 'package:todoprof/core/services/prefrence_manager.dart';
 import 'package:todoprof/models/task_model.dart';
@@ -18,7 +19,7 @@ class TasksController with ChangeNotifier {
     loadTask();
   }
 
-  calculate() {
+  void _calculate() {
     totalTask = tasks.length;
     totalDoneTask = tasks.where((e) => e.isDone).length;
     percentage = totalTask == 0 ? 0 : totalDoneTask / totalTask;
@@ -36,40 +37,29 @@ class TasksController with ChangeNotifier {
       tasks = taskAfterDecode
           .map((element) => TaskModel.fromJson(element))
           .toList();
-      calculate();
-      todoTasks = tasks.where((e) => !e.isDone).toList();
-      completeTasks = tasks.where((e) => e.isDone).toList();
-      highPirority = tasks
-          .where((element) => element.isHighPriority)
-          .toList()
-          .reversed
-          .toList();
+      _calculate();
+      _loadData();
     }
     isLoading = false;
     notifyListeners();
   }
 
-  void doneTask(bool? value, int? index) async {
-    if (index == null) return;
-    todoTasks[index].isDone = value ?? false;
-    final int newIndex = tasks.indexWhere((e) => e.id == todoTasks[index].id);
-    tasks[newIndex] = todoTasks[index];
-    await PrefrenceManager().setString(
-      StorageKey.modelTasks,
-      jsonEncode(tasks),
-    );
-    loadTask();
+  void doneTask(bool? value, int? id) async {
+    final index = tasks.indexWhere((e) => e.id == id);
+
+    tasks[index].isDone = value ?? false;
+    _loadData();
+    _calculate();
+    final updatedTask = tasks.map((element) => element.toJson()).toList();
+    await PrefrenceManager().setString('tasks', jsonEncode(updatedTask));
     notifyListeners();
   }
 
-  deleteTask(int? id) async {
-    tasks.removeWhere((task) => task.id == id);
-
+  void deleteTask(int? id) async {
     if (id == null) return;
-
-    todoTasks.removeWhere((task) => task.id == id);
-    completeTasks.removeWhere((task) => task.id == id);
-    highPirority.removeWhere((task) => task.id == id);
+    tasks.removeWhere((task) => task.id == id);
+    _loadData();
+    _calculate();
 
     final updatedTask = tasks.map((element) => element.toJson()).toList();
     await PrefrenceManager().setString(
@@ -79,33 +69,13 @@ class TasksController with ChangeNotifier {
     notifyListeners();
   }
 
-  void doneCompleteTask(bool? value, int? index) async {
-    if (index == null) return;
-    completeTasks[index].isDone = value ?? false;
-    final int newIndex = tasks.indexWhere(
-      (e) => e.id == completeTasks[index].id,
-    );
-    tasks[newIndex] = completeTasks[index];
-    await PrefrenceManager().setString(
-      StorageKey.modelTasks,
-      jsonEncode(tasks),
-    );
-    loadTask();
-    notifyListeners();
-  }
-
-  void doneHighPirorityTask(bool? value, int? index) async {
-    if (index == null) return;
-    highPirority[index].isDone = value ?? false;
-    final int newIndex = tasks.indexWhere(
-      (e) => e.id == highPirority[index].id,
-    );
-    tasks[newIndex] = highPirority[index];
-    await PrefrenceManager().setString(
-      StorageKey.modelTasks,
-      jsonEncode(tasks),
-    );
-    loadTask();
-    notifyListeners();
+  void _loadData() {
+    todoTasks = tasks.where((e) => !e.isDone).toList();
+    completeTasks = tasks.where((e) => e.isDone).toList();
+    highPirority = tasks
+        .where((element) => element.isHighPriority)
+        .toList()
+        .reversed
+        .toList();
   }
 }

@@ -6,15 +6,16 @@ import 'package:todoprof/core/widgets/custom_ceckbox.dart';
 import 'package:todoprof/features/home/home_controller.dart';
 
 import 'package:todoprof/features/tasks/high_pirority_screen.dart';
+import 'package:todoprof/features/tasks/tasks_controller.dart';
 
 class HighPirorityWidget extends StatelessWidget {
   HighPirorityWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<HomeController>(
+    return Consumer<TasksController>(
       builder:
-          (BuildContext context, HomeController controller, Widget? child) {
+          (BuildContext context, TasksController controller, Widget? child) {
             return Container(
               width: double.infinity,
               decoration: BoxDecoration(
@@ -56,10 +57,7 @@ class HighPirorityWidget extends StatelessWidget {
                                   CustomCeckbox(
                                     value: elemnt.isDone,
                                     onChanged: (value) {
-                                      final index = controller.tasks.indexWhere(
-                                        (e) => e.id == elemnt.id,
-                                      );
-                                      controller.doneTask(value, index);
+                                      controller.doneTask(value, elemnt.id);
                                     },
                                   ),
 

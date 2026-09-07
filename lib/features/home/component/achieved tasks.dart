@@ -1,19 +1,18 @@
-// ignore_for_file: must_be_immutable
-
 import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todoprof/core/Theme/theme_controller.dart';
-import 'package:todoprof/features/home/home_controller.dart';
+
+import 'package:todoprof/features/tasks/tasks_controller.dart';
 
 class AchievedTaskWidget extends StatelessWidget {
   AchievedTaskWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<HomeController>(
-      builder: (BuildContext context, HomeController value, Widget? child) {
+    return Consumer<TasksController>(
+      builder: (BuildContext context, TasksController value, Widget? child) {
         return Container(
           padding: EdgeInsets.all(16),
           width: double.infinity,
