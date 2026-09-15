@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:todoprof/core/Theme/dark_theme.dart';
 import 'package:todoprof/core/Theme/light_theme.dart';
@@ -13,6 +14,7 @@ import 'package:todoprof/features/welcome/welcome_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await ScreenUtil.ensureScreenSize();
 
   await PrefrenceManager().init();
   ThemeController().init();
@@ -31,13 +33,19 @@ class MyApp extends StatelessWidget {
       builder: (context, themeMode, child) {
         return ChangeNotifierProvider<TasksController>(
           create: (BuildContext context) => TasksController()..init(),
-          child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'TASKY',
-            theme: lightTheme,
-            darkTheme: darkTheme,
-            themeMode: themeMode,
-            home: username == null ? Welcome() : MainScreen(),
+          child: ScreenUtilInit(
+            minTextAdapt: true,
+            designSize: Size(375, 809),
+            builder: (ctx, _) {
+              return MaterialApp(
+                debugShowCheckedModeBanner: false,
+                title: 'TASKY',
+                theme: lightTheme,
+                darkTheme: darkTheme,
+                themeMode: themeMode,
+                home: username == null ? Welcome() : MainScreen(),
+              );
+            },
           ),
         );
       },
