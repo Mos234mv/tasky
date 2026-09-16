@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:todoprof/core/constants/app_sizes.dart';
 
 import 'package:todoprof/core/widgets/custom_text_form_field.dart';
 import 'package:todoprof/features/add_task/add_task_controller.dart';
@@ -17,7 +18,10 @@ class AddTask extends StatelessWidget {
           appBar: AppBar(title: Text("New Task")),
           body: SafeArea(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              padding: EdgeInsets.symmetric(
+                horizontal: AppSizes.pw16,
+                vertical: AppSizes.ph8,
+              ),
               child: Form(
                 key: controller.key,
                 child: Column(
@@ -41,7 +45,7 @@ class AddTask extends StatelessWidget {
                                 return null;
                               },
                             ),
-                            SizedBox(height: 20),
+                            SizedBox(height: AppSizes.ph20),
 
                             CustomTextFormField(
                               title: "Task Description",
@@ -51,7 +55,7 @@ class AddTask extends StatelessWidget {
                               maxlines: 5,
                             ),
 
-                            SizedBox(height: 20),
+                            SizedBox(height: AppSizes.ph20),
 
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -92,7 +96,10 @@ class AddTask extends StatelessWidget {
                       icon: Icon(Icons.add),
                       label: Text("Add Task"),
                       style: ElevatedButton.styleFrom(
-                        fixedSize: Size(MediaQuery.of(context).size.width, 40),
+                        fixedSize: Size(
+                          MediaQuery.of(context).size.width,
+                          AppSizes.h40,
+                        ),
                       ),
                     ),
                   ],

@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:todoprof/core/constants/app_sizes.dart';
 import 'package:todoprof/core/widgets/custom_svg_picture.dart';
 import 'package:todoprof/features/home/home_controller.dart';
 import 'package:todoprof/features/add_task/add_task.dart';
@@ -19,8 +20,8 @@ class HomeScreen extends StatelessWidget {
 
       child: Scaffold(
         floatingActionButton: SizedBox(
-          height: 40,
-          width: 168,
+          height: AppSizes.h40,
+          width: AppSizes.w168,
           child: Builder(
             builder: (BuildContext context) {
               return FloatingActionButton.extended(
@@ -41,7 +42,7 @@ class HomeScreen extends StatelessWidget {
                 label: Text('Add New Task'),
                 icon: Icon(Icons.add),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(100),
+                  borderRadius: BorderRadius.circular(AppSizes.r100),
                 ),
               );
             },
@@ -49,7 +50,7 @@ class HomeScreen extends StatelessWidget {
         ),
 
         body: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: EdgeInsets.all(AppSizes.pw16),
           child: CustomScrollView(
             slivers: [
               SliverToBoxAdapter(
@@ -74,41 +75,43 @@ class HomeScreen extends StatelessWidget {
                                           'assets/Images/Leading element.png',
                                         )
                                       : FileImage(File(userImagePath)),
-                                  radius: 60,
+                                  radius: AppSizes.r40,
                                   backgroundColor: Colors.transparent,
                                 );
                               },
                         ),
-                        SizedBox(width: 8),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Selector<HomeController, String?>(
-                              selector: (context, controller) =>
-                                  controller.username,
-                              builder:
-                                  (
-                                    BuildContext context,
-                                    String? username,
-                                    Widget? child,
-                                  ) {
-                                    return Text(
-                                      "Good Evening , $username",
-                                      style: Theme.of(
-                                        context,
-                                      ).textTheme.titleMedium,
-                                    );
-                                  },
-                            ),
-                            Text(
-                              "One task at a time.One step closer.",
-                              style: Theme.of(context).textTheme.titleSmall,
-                            ),
-                          ],
+                        SizedBox(width: AppSizes.pw8),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Selector<HomeController, String?>(
+                                selector: (context, controller) =>
+                                    controller.username,
+                                builder:
+                                    (
+                                      BuildContext context,
+                                      String? username,
+                                      Widget? child,
+                                    ) {
+                                      return Text(
+                                        "Good Evening , $username",
+                                        style: Theme.of(
+                                          context,
+                                        ).textTheme.titleMedium,
+                                      );
+                                    },
+                              ),
+                              Text(
+                                "One task at a time.One step closer.",
+                                style: Theme.of(context).textTheme.titleSmall,
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: AppSizes.ph16),
                     Text(
                       'Yuhuu ,Your work Is ',
                       style: Theme.of(context).textTheme.displayLarge,
@@ -119,7 +122,7 @@ class HomeScreen extends StatelessWidget {
                           'almost done !',
                           style: Theme.of(context).textTheme.displayLarge,
                         ),
-                        SizedBox(width: 8),
+                        SizedBox(width: AppSizes.pw8),
                         CustomSvgPicture(
                           path:
                               'assets/Images/waving-hand-medium-light-skin-tone-svgrepo-com 1.svg',
@@ -127,13 +130,16 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: AppSizes.ph16),
                     AchievedTaskWidget(),
-                    SizedBox(height: 8),
+                    SizedBox(height: AppSizes.ph8),
                     HighPirorityWidget(),
 
                     Padding(
-                      padding: const EdgeInsets.only(top: 24, bottom: 16),
+                      padding: EdgeInsets.only(
+                        top: AppSizes.ph24,
+                        bottom: AppSizes.ph16,
+                      ),
                       child: Text(
                         "My Tasks",
                         style: Theme.of(context).textTheme.labelSmall,

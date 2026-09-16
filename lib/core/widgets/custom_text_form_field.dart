@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todoprof/core/constants/app_sizes.dart';
 
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({
@@ -25,10 +26,10 @@ class CustomTextFormField extends StatelessWidget {
           title,
           style: Theme.of(
             context,
-          ).textTheme.displaySmall!.copyWith(fontSize: 16),
+          ).textTheme.displaySmall!.copyWith(fontSize: AppSizes.sp16),
         ),
 
-        SizedBox(height: 8),
+        SizedBox(height: AppSizes.ph8),
         TextFormField(
           controller: controller,
 

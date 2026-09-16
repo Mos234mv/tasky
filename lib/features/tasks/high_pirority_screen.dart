@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:todoprof/core/constants/app_sizes.dart';
 
 import 'package:todoprof/features/tasks/tasks_controller.dart';
 
@@ -16,7 +17,7 @@ class HighPirorityScreen extends StatelessWidget {
       appBar: AppBar(title: Text("High Pirority Tasks")),
 
       body: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.all(AppSizes.pw16),
         child: Consumer<TasksController>(
           builder:
               (

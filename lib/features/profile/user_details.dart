@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todoprof/core/constants/app_sizes.dart';
 import 'package:todoprof/core/constants/storage_key.dart';
 import 'package:todoprof/core/services/prefrence_manager.dart';
 import 'package:todoprof/core/widgets/custom_text_form_field.dart';
@@ -36,7 +37,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
     return Scaffold(
       appBar: AppBar(title: Text("User Details")),
       body: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.all(AppSizes.pw16),
         child: Form(
           key: _key,
           child: Column(
@@ -52,7 +53,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                   return null;
                 },
               ),
-              SizedBox(height: 20),
+              SizedBox(height: AppSizes.ph20),
               CustomTextFormField(
                 controller: motivationQuoteController,
                 hintText: "One task at a time. One step closer.",
@@ -86,7 +87,10 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
 
                 child: Text("Save Changes"),
                 style: ElevatedButton.styleFrom(
-                  fixedSize: Size(MediaQuery.of(context).size.width, 40),
+                  fixedSize: Size(
+                    MediaQuery.of(context).size.width,
+                    AppSizes.h40,
+                  ),
                 ),
               ),
             ],

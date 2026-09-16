@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:todoprof/core/constants/app_sizes.dart';
 import 'package:todoprof/core/constants/storage_key.dart';
 
@@ -24,7 +24,7 @@ class Welcome extends StatelessWidget {
               key: _key,
               child: Column(
                 children: [
-                  SizedBox(height: AppSizes.h16),
+                  SizedBox(height: AppSizes.ph16),
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -36,7 +36,7 @@ class Welcome extends StatelessWidget {
                         height: AppSizes.h16,
                       ),
 
-                      SizedBox(width: AppSizes.w16),
+                      SizedBox(width: AppSizes.pw16),
                       Text(
                         "Tasky",
                         style: Theme.of(context).textTheme.displayMedium,
@@ -51,7 +51,7 @@ class Welcome extends StatelessWidget {
                         "Welcome To Tasky",
                         style: Theme.of(context).textTheme.displaySmall,
                       ),
-                      SizedBox(width: 8.w),
+                      SizedBox(width: AppSizes.pw8),
                       CustomSvgPicture(
                         path:
                             'assets/Images/waving-hand-medium-light-skin-tone-svgrepo-com 1.svg',
@@ -59,24 +59,24 @@ class Welcome extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: AppSizes.h8),
+                  SizedBox(height: AppSizes.ph8),
                   Text(
                     "Your productivity journey starts here.",
                     style: Theme.of(
                       context,
-                    ).textTheme.displaySmall!.copyWith(fontSize: 16.sp),
+                    ).textTheme.displaySmall!.copyWith(fontSize: AppSizes.sp16),
                   ),
-                  SizedBox(height: AppSizes.h24),
+                  SizedBox(height: AppSizes.ph24),
                   CustomSvgPicture(
                     path: 'assets/Images/pana.svg',
                     withColor: false,
-                    width: 215.w,
+                    width: AppSizes.w215,
                     height: AppSizes.h204,
                   ),
 
-                  SizedBox(height: 60),
+                  SizedBox(height: AppSizes.ph60),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    padding: EdgeInsets.symmetric(horizontal: AppSizes.pw16),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -92,7 +92,7 @@ class Welcome extends StatelessWidget {
                           },
                         ),
 
-                        SizedBox(height: 24.h),
+                        SizedBox(height: AppSizes.ph24),
                         ElevatedButton(
                           onPressed: () async {
                             if (_key.currentState?.validate() ?? false) {
@@ -122,12 +122,12 @@ class Welcome extends StatelessWidget {
                             backgroundColor: Color(0xff15B86C),
                             fixedSize: Size(
                               MediaQuery.of(context).size.width,
-                              40,
+                              AppSizes.h40,
                             ),
                           ),
                           child: Text(
                             'Let’s Get Started',
-                            style: TextStyle(fontSize: 16.sp),
+                            style: TextStyle(fontSize: AppSizes.sp16),
                           ),
                         ),
                       ],

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:todoprof/core/constants/app_sizes.dart';
 
 import 'package:todoprof/core/Theme/theme_controller.dart';
 import 'package:todoprof/core/constants/storage_key.dart';
@@ -46,18 +47,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return isLoading
         ? Center(child: CircularProgressIndicator())
         : Padding(
-            padding: const EdgeInsets.all(16),
+            padding: EdgeInsets.all(AppSizes.pw16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 8),
+                  padding: EdgeInsets.only(top: AppSizes.ph8),
                   child: Text(
                     "My Profile",
                     style: Theme.of(context).textTheme.labelSmall,
                   ),
                 ),
-                SizedBox(height: 16),
+                SizedBox(height: AppSizes.ph16),
                 Center(
                   child: Column(
                     children: [
@@ -70,7 +71,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     'assets/Images/Leading element.png',
                                   )
                                 : FileImage(File(userImagePath!)),
-                            radius: 60,
+                            radius: AppSizes.r60,
                             backgroundColor: Colors.transparent,
                           ),
                           GestureDetector(
@@ -83,20 +84,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               });
                             },
                             child: Container(
-                              height: 45,
-                              width: 45,
+                              height: AppSizes.h46,
+                              width: AppSizes.w46,
                               decoration: BoxDecoration(
                                 color: Theme.of(
                                   context,
                                 ).colorScheme.primaryContainer,
-                                borderRadius: BorderRadius.circular(100),
+                                borderRadius: BorderRadius.circular(
+                                  AppSizes.r100,
+                                ),
                               ),
                               child: Icon(Icons.camera_alt),
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(height: 6),
+                      SizedBox(height: AppSizes.ph6),
 
                       Text(
                         username,
@@ -109,12 +112,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ],
                   ),
                 ),
-                SizedBox(height: 24),
+                SizedBox(height: AppSizes.ph24),
                 Text(
                   "Profile Info",
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
-                SizedBox(height: 24),
+                SizedBox(height: AppSizes.ph24),
                 ListTile(
                   onTap: () async {
                     final result = await Navigator.push(
@@ -220,7 +223,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Row(
                 children: [
                   Icon(Icons.camera_alt),
-                  SizedBox(width: 8),
+                  SizedBox(width: AppSizes.pw8),
                   Text(
                     "Camera",
                     style: Theme.of(context).textTheme.titleMedium,
@@ -241,7 +244,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Row(
                 children: [
                   Icon(Icons.photo_library),
-                  SizedBox(width: 8),
+                  SizedBox(width: AppSizes.pw8),
                   Text(
                     "Studio",
                     style: Theme.of(context).textTheme.titleMedium,
@@ -260,35 +263,4 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final newfile = await File(file.path).copy('${appDir.path}/${file.name} ');
     PrefrenceManager().setString(StorageKey.userImage, newfile.path);
   }
-
-  // void _showBottomSeet(BuildContext context) {
-  //   showModalBottomSheet(
-  //     isScrollControlled: true,
-  //     context: context,
-  //     builder: (context) {
-  //       return ConstrainedBox(
-  //         constraints: BoxConstraints(
-  //           maxHeight: MediaQuery.of(context).size.height * 0.9,
-  //         ),
-  //         child: Padding(
-  //           padding: const EdgeInsets.all(16),
-  //           child: ListView.builder(
-  //             shrinkWrap: true,
-  //             itemCount: 3,
-  //             itemBuilder: (BuildContext context, int index) {
-  //               return Padding(
-  //                 padding: const EdgeInsets.all(8.0),
-  //                 child: Container(
-  //                   width: MediaQuery.of(context).size.width,
-  //                   height: 50,
-  //                   color: Colors.red,
-  //                 ),
-  //               );
-  //             },
-  //           ),
-  //         ),
-  //       );
-  //     },
-  //   );
-  // }
 }

@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todoprof/core/Theme/theme_controller.dart';
+import 'package:todoprof/core/constants/app_sizes.dart';
 
 import 'package:todoprof/features/tasks/tasks_controller.dart';
 
@@ -14,10 +15,10 @@ class AchievedTaskWidget extends StatelessWidget {
     return Consumer<TasksController>(
       builder: (BuildContext context, TasksController value, Widget? child) {
         return Container(
-          padding: EdgeInsets.all(16),
+          padding: EdgeInsets.all(AppSizes.pw16),
           width: double.infinity,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(AppSizes.r20),
             border: Border.all(
               color: ThemeController.isDark()
                   ? Colors.transparent
@@ -54,14 +55,14 @@ class AchievedTaskWidget extends StatelessWidget {
                         Color(0xFF15B86C),
                       ),
                       value: value.percentage,
-                      strokeWidth: 4,
+                      strokeWidth: AppSizes.w4,
                       strokeAlign: 3,
                     ),
                   ),
                   Text(
                     "${(value.percentage * 100).toInt()} %",
                     style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                      fontSize: 14,
+                      fontSize: AppSizes.sp14,
                       fontWeight: FontWeight.w500,
                     ),
                   ),

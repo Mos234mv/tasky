@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:todoprof/core/Theme/theme_controller.dart';
+import 'package:todoprof/core/constants/app_sizes.dart';
 import 'package:todoprof/core/widgets/custom_ceckbox.dart';
-import 'package:todoprof/features/home/home_controller.dart';
 
 import 'package:todoprof/features/tasks/high_pirority_screen.dart';
 import 'package:todoprof/features/tasks/tasks_controller.dart';
@@ -20,7 +20,7 @@ class HighPirorityWidget extends StatelessWidget {
               width: double.infinity,
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.primaryContainer,
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(AppSizes.r20),
                 border: Border.all(
                   color: ThemeController.themeNotifier.value == ThemeMode.light
                       ? Color(0xFFD1DAD6)
@@ -37,12 +37,12 @@ class HighPirorityWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.all(16),
+                          padding: EdgeInsets.all(AppSizes.pw16),
                           child: Text(
                             "High Priority Tasks",
                             style: TextStyle(
                               color: Color(0xFF15B86C),
-                              fontSize: 14,
+                              fontSize: AppSizes.sp14,
                               fontWeight: FontWeight.w400,
                             ),
                           ),
@@ -94,11 +94,11 @@ class HighPirorityWidget extends StatelessWidget {
                       controller.loadTask();
                     },
                     child: Padding(
-                      padding: const EdgeInsets.all(16),
+                      padding: EdgeInsets.all(AppSizes.pw16),
                       child: Container(
-                        padding: EdgeInsets.all(8),
-                        height: 56,
-                        width: 48,
+                        padding: EdgeInsets.all(AppSizes.pw8),
+                        height: AppSizes.h56,
+                        width: AppSizes.w48,
                         decoration: BoxDecoration(
                           color: Theme.of(context).colorScheme.primaryContainer,
                           shape: BoxShape.circle,
@@ -110,8 +110,8 @@ class HighPirorityWidget extends StatelessWidget {
                         ),
                         child: SvgPicture.asset(
                           'assets/Images/arrow-up-right.svg',
-                          width: 24,
-                          height: 24,
+                          width: AppSizes.w24,
+                          height: AppSizes.h24,
                           colorFilter: ColorFilter.mode(
                             Theme.of(context).colorScheme.secondary,
                             BlendMode.srcIn,

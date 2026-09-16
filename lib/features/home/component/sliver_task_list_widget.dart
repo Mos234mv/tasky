@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:todoprof/core/constants/app_sizes.dart';
 
 import 'package:todoprof/core/components/task_item_widget.dart';
 
@@ -28,20 +29,19 @@ class SliverTaskListWidget extends StatelessWidget {
                     child: Center(
                       child: Text(
                         "No Data",
-                        style: Theme.of(
-                          context,
-                        ).textTheme.labelMedium!.copyWith(fontSize: 24),
+                        style: Theme.of(context).textTheme.labelMedium!
+                            .copyWith(fontSize: AppSizes.sp24),
                       ),
                     ),
                   )
                 : SliverPadding(
-                    padding: EdgeInsets.only(bottom: 80),
+                    padding: EdgeInsets.only(bottom: AppSizes.ph80),
 
                     sliver: SliverList.builder(
                       itemCount: valueController.tasks.length,
                       itemBuilder: (BuildContext context, int index) {
                         return Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
+                          padding: EdgeInsets.only(top: AppSizes.ph8),
                           child: TaskItemWidget(
                             model: valueController.tasks[index],
                             onChanged: (bool? value) {

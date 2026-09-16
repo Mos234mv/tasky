@@ -28,6 +28,7 @@ class AppSizes {
   static final double h46 = 46.h;
   static final double h48 = 48.h;
   static final double h50 = 50.h;
+  static final double h56 = 56.h;
   static final double h204 = 204.h;
 
   // weights
@@ -57,6 +58,7 @@ class AppSizes {
   static final double w46 = 46.w;
   static final double w48 = 48.w;
   static final double w50 = 50.w;
+  static final double w168 = 168.w;
   static final double w215 = 215.w;
 
   //text fontsize
@@ -141,8 +143,10 @@ class AppSizes {
   static final double ph46 = 46.h;
   static final double ph48 = 48.h;
   static final double ph50 = 50.h;
-  static final double ph108 = 108.h;
+
   static final double ph60 = 60.h;
+  static final double ph80 = 80.h;
+  static final double ph108 = 108.h;
 
   // Raduis
   static final double r2 = 2.r;
@@ -170,4 +174,6 @@ class AppSizes {
   static final double r46 = 46.r;
   static final double r48 = 48.r;
   static final double r50 = 50.r;
+  static final double r60 = 60.r;
+  static final double r100 = 100.r;
 }
