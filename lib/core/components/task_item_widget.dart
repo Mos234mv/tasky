@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:todoprof/core/Theme/theme_controller.dart';
 import 'package:todoprof/core/constants/storage_key.dart';
 import 'package:todoprof/core/enums/task_item_actions_enum.dart';
-import 'package:todoprof/core/services/prefrence_manager.dart';
+import 'package:todoprof/core/services/file_storage_manager.dart';
 import 'package:todoprof/core/widgets/custom_ceckbox.dart';
 import 'package:todoprof/core/widgets/custom_text_form_field.dart';
 import 'package:todoprof/models/task_model.dart';
@@ -191,14 +191,9 @@ class TaskItemWidget extends StatelessWidget {
                     ElevatedButton.icon(
                       onPressed: () async {
                         if (_key.currentState?.validate() ?? false) {
-                          final taskJason = PrefrenceManager().getString(
-                            "tasks",
-                          );
+                          List<dynamic> listTasks = await FileStorageManager()
+                              .loadTasks();
 
-                          List<dynamic> listTasks = [];
-                          if (taskJason != null) {
-                            listTasks = jsonDecode(taskJason);
-                          }
                           TaskModel newmodel = TaskModel(
                             id: model.id,
                             taskName: namecontroller.text,
@@ -211,12 +206,7 @@ class TaskItemWidget extends StatelessWidget {
                           );
                           final index = listTasks.indexOf(item);
                           listTasks[index] = newmodel;
-
-                          final taskEncode = jsonEncode(listTasks);
-                          await PrefrenceManager().setString(
-                            "tasks",
-                            taskEncode,
-                          );
+                          FileStorageManager().saveTask(listTasks);
 
                           Navigator.of(context).pop(true);
                         }

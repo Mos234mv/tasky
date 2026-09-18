@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:todoprof/core/constants/storage_key.dart';
+import 'package:todoprof/core/services/file_storage_manager.dart';
 import 'package:todoprof/core/services/prefrence_manager.dart';
 import 'package:todoprof/models/task_model.dart';
 
@@ -27,6 +28,7 @@ class AddTaskController with ChangeNotifier {
       );
 
       listtasks.add(model.toJson());
+      await FileStorageManager().saveTask(listtasks);
       final taskEncode = jsonEncode(listtasks);
       await PrefrenceManager().setString(StorageKey.modelTasks, taskEncode);
 

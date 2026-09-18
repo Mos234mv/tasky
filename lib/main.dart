@@ -5,6 +5,7 @@ import 'package:todoprof/core/Theme/dark_theme.dart';
 import 'package:todoprof/core/Theme/light_theme.dart';
 import 'package:todoprof/core/Theme/theme_controller.dart';
 import 'package:todoprof/core/constants/storage_key.dart';
+import 'package:todoprof/core/services/file_storage_manager.dart';
 
 import 'package:todoprof/core/services/prefrence_manager.dart';
 
@@ -17,6 +18,8 @@ void main() async {
   await ScreenUtil.ensureScreenSize();
 
   await PrefrenceManager().init();
+
+  await FileStorageManager().init();
   ThemeController().init();
   String? username = PrefrenceManager().getString(StorageKey.userName);
   runApp(MyApp(username: username));

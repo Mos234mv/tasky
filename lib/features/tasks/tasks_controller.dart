@@ -1,9 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:todoprof/core/constants/storage_key.dart';
-import 'package:todoprof/core/services/prefrence_manager.dart';
+import 'package:todoprof/core/services/file_storage_manager.dart';
 import 'package:todoprof/models/task_model.dart';
 
 class TasksController with ChangeNotifier {
@@ -26,20 +24,15 @@ class TasksController with ChangeNotifier {
     notifyListeners();
   }
 
-  void loadTask() {
+  void loadTask() async {
     isLoading = true;
 
-    final finalTask = PrefrenceManager().getString(StorageKey.modelTasks);
+    final tasksData = await FileStorageManager().loadTasks();
 
-    if (finalTask != null) {
-      final taskAfterDecode = jsonDecode(finalTask) as List<dynamic>;
+    tasks = tasksData.map((element) => TaskModel.fromJson(element)).toList();
+    _calculate();
+    _loadData();
 
-      tasks = taskAfterDecode
-          .map((element) => TaskModel.fromJson(element))
-          .toList();
-      _calculate();
-      _loadData();
-    }
     isLoading = false;
     notifyListeners();
   }
@@ -51,7 +44,8 @@ class TasksController with ChangeNotifier {
     _loadData();
     _calculate();
     final updatedTask = tasks.map((element) => element.toJson()).toList();
-    await PrefrenceManager().setString('tasks', jsonEncode(updatedTask));
+    FileStorageManager().saveTask(updatedTask);
+
     notifyListeners();
   }
 
@@ -62,14 +56,12 @@ class TasksController with ChangeNotifier {
     _calculate();
 
     final updatedTask = tasks.map((element) => element.toJson()).toList();
-    await PrefrenceManager().setString(
-      StorageKey.modelTasks,
-      jsonEncode(updatedTask),
-    );
+    FileStorageManager().saveTask(updatedTask);
+
     notifyListeners();
   }
 
-  void _loadData() {
+  void _loadData() async {
     todoTasks = tasks.where((e) => !e.isDone).toList();
     completeTasks = tasks.where((e) => e.isDone).toList();
     highPirority = tasks
