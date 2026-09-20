@@ -19,7 +19,7 @@ void main() async {
 
   await PrefrenceManager().init();
 
-  await FileStorageManager().init();
+  await HiveStorageManager().init();
   ThemeController().init();
   String? username = PrefrenceManager().getString(StorageKey.userName);
   runApp(MyApp(username: username));

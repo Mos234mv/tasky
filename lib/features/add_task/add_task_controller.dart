@@ -1,9 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:todoprof/core/constants/storage_key.dart';
 import 'package:todoprof/core/services/file_storage_manager.dart';
-import 'package:todoprof/core/services/prefrence_manager.dart';
 import 'package:todoprof/models/task_model.dart';
 
 class AddTaskController with ChangeNotifier {
@@ -14,12 +10,7 @@ class AddTaskController with ChangeNotifier {
   bool isHighPriority = true;
   void addTask(BuildContext context) async {
     if (key.currentState?.validate() ?? false) {
-      final taskJason = PrefrenceManager().getString(StorageKey.modelTasks);
-
-      List<dynamic> listtasks = [];
-      if (taskJason != null) {
-        listtasks = jsonDecode(taskJason);
-      }
+      List<TaskModel> listtasks = HiveStorageManager().loadTasks();
       TaskModel model = TaskModel(
         id: listtasks.length + 1,
         taskName: taskNameController.text,
@@ -27,10 +18,8 @@ class AddTaskController with ChangeNotifier {
         isHighPriority: isHighPriority,
       );
 
-      listtasks.add(model.toJson());
-      await FileStorageManager().saveTask(listtasks);
-      final taskEncode = jsonEncode(listtasks);
-      await PrefrenceManager().setString(StorageKey.modelTasks, taskEncode);
+      listtasks.add(model);
+      await HiveStorageManager().saveTask(listtasks);
 
       Navigator.of(context).pop(true);
     }

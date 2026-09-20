@@ -1,6 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:todoprof/core/constants/constants.dart';
 import 'package:todoprof/core/services/file_storage_manager.dart';
 import 'package:todoprof/models/task_model.dart';
 
@@ -27,11 +26,7 @@ class TasksController with ChangeNotifier {
   void loadTask() async {
     isLoading = true;
 
-    final tasksData = await FileStorageManager().loadTasks();
-
-    tasks = tasksData.map((element) => TaskModel.fromJson(element)).toList();
-    _calculate();
-    _loadData();
+    tasks = HiveStorageManager().loadTasks();
 
     isLoading = false;
     notifyListeners();
@@ -43,8 +38,8 @@ class TasksController with ChangeNotifier {
     tasks[index].isDone = value ?? false;
     _loadData();
     _calculate();
-    final updatedTask = tasks.map((element) => element.toJson()).toList();
-    FileStorageManager().saveTask(updatedTask);
+
+    HiveStorageManager().saveTask(tasks);
 
     notifyListeners();
   }
@@ -55,8 +50,7 @@ class TasksController with ChangeNotifier {
     _loadData();
     _calculate();
 
-    final updatedTask = tasks.map((element) => element.toJson()).toList();
-    FileStorageManager().saveTask(updatedTask);
+    HiveStorageManager().saveTask(tasks);
 
     notifyListeners();
   }
@@ -69,5 +63,9 @@ class TasksController with ChangeNotifier {
         .toList()
         .reversed
         .toList();
+  }
+
+  void clearTasks() {
+    loadTask();
   }
 }

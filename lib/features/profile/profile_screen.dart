@@ -3,14 +3,17 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:todoprof/core/constants/app_sizes.dart';
 
 import 'package:todoprof/core/Theme/theme_controller.dart';
 import 'package:todoprof/core/constants/storage_key.dart';
+import 'package:todoprof/core/services/file_storage_manager.dart';
 import 'package:todoprof/core/services/prefrence_manager.dart';
 import 'package:todoprof/core/widgets/custom_svg_picture.dart';
 
 import 'package:todoprof/features/profile/user_details.dart';
+import 'package:todoprof/features/tasks/tasks_controller.dart';
 import 'package:todoprof/features/welcome/welcome_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -172,7 +175,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   onTap: () async {
                     PrefrenceManager().remove(StorageKey.userName);
                     PrefrenceManager().remove(StorageKey.motivationQuote);
-                    PrefrenceManager().remove(StorageKey.modelTasks);
+                    await HiveStorageManager().clear();
+                    context.read<TasksController>().clearTasks();
+
                     Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
